@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <title>Companies</title>
+  </head>
+  <body>
+    {% for company in companies %}
+    {% if company.company_approved == True %}
+      <li><a href={% url 'company' company.id %}>Name: {{company.company_name}} Descr: {{company.company_description}}</li>
+    {% endif %}
+    {% endfor %}
+  </body>
+</html>

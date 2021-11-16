@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Company: {{company.company_name}} </title>
+  </head>
+  <body>
+      <h1>Name: {{company.company_name}} Descr: {{company.company_description}}</h1>
+      <h2>Address: {{company.company_address_city}}, {{company.company_address_plz}}<h2>
+      <h2> {{company.company_address_street}}</h2>
+
+      {% if contact != None %}
+      <br>
+      <h1>Contact:</h1>
+      <h2>Name: {{contact.contact_lastName}} {{contact.contact_firstName}}</h2>
+      <h3>Phone: {{contact.contact_phone}}<h3>
+      <h3>Email: {{contact.contact_email}}</h3>
+      {% else %}
+      <h1>No Contact Information</h1>
+      {% endif %}
+  </body>
+</html>
