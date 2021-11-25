@@ -1,9 +1,9 @@
 <html>
   <head>
-    <title>Company: {{company.company_name}} </title>
+    <title>Company: {{company.company_name}} {{company.id}} </title>
   </head>
   <body>
-      <h1>Name: {{company.company_name}} Descr: {{company.company_description}}</h1>
+      <h1>{{company.id}} Name: {{company.company_name}} Descr: {{company.company_description}}</h1>
       <h2>Address: {{company.company_address_city}}, {{company.company_address_plz}}<h2>
       <h2> {{company.company_address_street}}</h2>
 

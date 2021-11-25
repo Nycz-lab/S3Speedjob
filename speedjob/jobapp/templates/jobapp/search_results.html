@@ -1,0 +1,40 @@
+<html>
+<body>
+<h1>Search Results</h1>
+
+<a href="{% url 'companies' %}">All Companies</a>
+<br>
+
+<form action="{% url 'search' %}">
+  <input name="q" type="text" placeholder="Search...">
+</form>
+
+{% if company_list %}
+<h2>Companies:</h2>
+<br>
+<ul>
+  {% for company in company_list %}
+    <li>
+      <a href="{% url 'company' company.id %}">{{company.company_name}}</a>
+    </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if contact_list %}
+<h2>Contacts:</h2>
+<br>
+<ul>
+  {% for contact in contact_list %}
+    <li>
+      {{contact.contact_firstName}} {{contact.contact_lastName}}
+    </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if not company_list and not contact_list %}
+  <h2> nothing found... </h2>
+{% endif %}
+</body>
+</html>
