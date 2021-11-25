@@ -5,15 +5,19 @@ from django.urls import reverse
 
 from django.core.mail import send_mail
 
-
 from .models import Company, Contact
 from .forms import RegisterForm
+
+from django.db.models import Q
+
+
 
 def index(request):
     return render(request, 'jobapp/index.html')
 
 def companies(request):
     return render(request, 'jobapp/companies.html', {'companies' : Company.objects.all()})
+
 
 def company(request, id):
     try:
@@ -24,8 +28,20 @@ def company(request, id):
     return render(request, 'jobapp/company.html', {'company' : get_object_or_404(Company, id=id),
      'contact' : contact})
 
-def createAppl(request):
-    return render(request, 'jobapp/createAppl.html', {'form': RegisterForm})
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        company_list = Company.objects.filter(
+            Q(company_name__icontains=query)
+        )
+        contact_list = Contact.objects.filter(
+            Q(contact_firstName__icontains=query) | Q(contact_lastName__icontains=query)
+        )
+        return render(request, 'jobapp/search_results.html', {'company_list' : company_list, 'contact_list' : contact_list})
+    else:
+        return render(request, 'jobapp/search.html')
+
+
 
 def register(request):
 
@@ -64,5 +80,6 @@ def register(request):
 
         else:
             return HttpResponse("and error occured!")
-
+    else:
+        return render(request, 'jobapp/createAppl.html', {'form': RegisterForm})
 # Create your views here.

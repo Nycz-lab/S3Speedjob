@@ -1,0 +1,10 @@
+<html>
+<body>
+<h1>Search</h1>
+  <a href="{% url 'companies' %}">All Companies</a>
+  <br><br>
+  <form action="{% url 'search' %}">
+    <input name="q" type="text" placeholder="Search...">
+  </form>
+</body>
+</html>
