@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+
 from .models import Company, Contact, Appl
 # Register your models here.
 
