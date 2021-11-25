@@ -27,7 +27,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['84.168.216.164']
+ALLOWED_HOSTS = ['s3jobs.ddns.net']
 
 
 # Application definition
