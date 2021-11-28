@@ -82,7 +82,7 @@ def registerOld(request):
 
 
         else:
-            return HttpResponse("and error occured!")
+            return HttpResponse("an error occured!")
     else:
         return render(request, 'jobapp/createAppl.html', {'form': RegisterForm})
 
@@ -107,6 +107,7 @@ def profile(request):
         if form.is_valid():
 
             form.save()
+            messages.success(request, f'Your picture has been saved!')
             return redirect('profile')
     else:
         form = ProfileForm(instance=request.user.profile)
