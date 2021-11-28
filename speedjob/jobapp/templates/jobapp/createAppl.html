@@ -5,7 +5,7 @@
 
     <div class="text-center">
       <h1>Register</h1>
-      <form action="{% url 'register' %}" method="post">
+      <form action="{% url 'registerOld' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Submit">
