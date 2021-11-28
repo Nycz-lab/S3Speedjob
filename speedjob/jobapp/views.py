@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -6,7 +6,10 @@ from django.urls import reverse
 from django.core.mail import send_mail
 
 from .models import Company, Contact
-from .forms import RegisterForm
+from .forms import RegisterForm, UserRegistrationForm
+
+from django.contrib.auth import login, authenticate
+from django.contrib import messages
 
 from django.db.models import Q
 
@@ -43,7 +46,7 @@ def search(request):
 
 
 
-def register(request):
+def registerOld(request):
 
     if request.method == "POST":
 
@@ -82,4 +85,22 @@ def register(request):
             return HttpResponse("and error occured!")
     else:
         return render(request, 'jobapp/createAppl.html', {'form': RegisterForm})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, f'Your account has been created. You can log in now!')
+            return redirect('login')
+    else:
+        form = UserRegistrationForm()
+
+    return render(request, 'jobapp/register.html', {'form' : form})
+
+def profile(request):
+    return render(request, 'jobapp/profile.html')
+
 # Create your views here.

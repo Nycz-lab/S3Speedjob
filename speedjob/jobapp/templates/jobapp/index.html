@@ -12,12 +12,23 @@
       height: 100vh;">
 
     <div class="text-center">
-      <h1>Hello, world. You're on the SpeedJob S3 Website!</h1>
+      {% if user.is_authenticated %}
+      <h1>Hello, {{user.username}}. You're on the SpeedJob S3 Website!</h1>
+      {% else %}
+      <h1>Hello, unknown. You're on the SpeedJob S3 Website!</h1>
+      {% endif %}
       <h2>
         <a href="/admin">Admin</a><br>
-        <a href="{% url 'register' %}">Register</a><br>
         <a href="{% url 'search' %}">Search</a><br>
-        <a href="{% url 'companies' %}">Companies</a>
+        <a href="{% url 'companies' %}">Companies</a><br>
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}">Profile</a><br>
+        <a href="{% url 'registerOld' %}">register Company</a><br>
+        <a href="{% url 'logout' %}">logout</a><br>
+        {% else %}
+        <a href="{% url 'login' %}">login</a> /
+        <a href="{% url 'register' %}">register</a><br>
+        {% endif %}
       </h2>
     </div>
   </div>
