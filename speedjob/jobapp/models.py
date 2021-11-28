@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -24,6 +25,13 @@ class Contact(models.Model):
         return self.contact_lastName + " " + self.contact_firstName
 
 class Appl(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.OneToOneField(Company, on_delete=models.CASCADE)
     appl_date = models.DateField(auto_now_add=True)
     appl_ip_addr = models.GenericIPAddressField(unpack_ipv4=True)
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
