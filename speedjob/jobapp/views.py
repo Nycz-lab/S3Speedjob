@@ -5,8 +5,8 @@ from django.urls import reverse
 
 from django.core.mail import send_mail
 
-from .models import Company, Contact
-from .forms import RegisterForm, UserRegistrationForm, ProfileForm
+from .models import Company, Profile, JobOffer
+from .forms import RegisterForm, UserRegistrationForm, ProfileForm, RegisterJobOfferForm
 
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
@@ -23,59 +23,54 @@ def companies(request):
 
 
 def company(request, id):
+    contact = Profile.objects.get(company = id)
+    job_offers = JobOffer.objects.filter(company= id).order_by('offer_date')
+    auth = False
     try:
-        contact = Contact.objects.get(company_id = id)
-    except Contact.DoesNotExist:
-        contact = None
+        if(contact == request.user.profile):
+            auth = True
+    except Exception:
+            auth = False
 
     return render(request, 'jobapp/company.html', {'company' : get_object_or_404(Company, id=id),
-     'contact' : contact})
+     'contact' : contact, 'auth': auth, 'offers': job_offers})
 
 def search(request):
     query = request.GET.get('q')
     if query:
         company_list = Company.objects.filter(
-            Q(company_name__icontains=query)
-        )
-        contact_list = Contact.objects.filter(
-            Q(contact_firstName__icontains=query) | Q(contact_lastName__icontains=query)
-        )
-        return render(request, 'jobapp/search_results.html', {'company_list' : company_list, 'contact_list' : contact_list})
+            Q(company_name__icontains=query) & Q(company_approved__icontains = True)
+        ).order_by('company_name')
+        job_offer_list = JobOffer.objects.filter(
+            Q(tag__word__icontains=query), company__company_approved = True
+        ).order_by('offer_date')
+        contact_list = User.objects.filter(
+            Q(username__icontains=query) | Q(first_name__icontains=query)
+        ).order_by('username')
+        print(contact_list)
+        return render(request, 'jobapp/search_results.html', {'company_list' : company_list, 'offers' : job_offer_list,'contact_list' : contact_list})
     else:
         return render(request, 'jobapp/search.html')
 
 
 
-def registerOld(request):
+def registerCompany(request):
 
     if request.method == "POST":
-
         form = RegisterForm(request.POST)
 
         if form.is_valid():
 
-            company = Company(company_name = form.cleaned_data['company_name'],
+
+
+            company = Company(profile = request.user.profile,
+            company_name = form.cleaned_data['company_name'],
             company_description = form.cleaned_data['company_description'],
             company_address_city = form.cleaned_data['company_address_city'],
             company_address_plz = form.cleaned_data['company_address_plz'],
             company_address_street = form.cleaned_data['company_address_street'],)
             company.save()
 
-            contact = Contact(company_id = company.id, contact_firstName = form.cleaned_data['firstName'],
-            contact_lastName = form.cleaned_data['lastName'],
-            contact_phone = form.cleaned_data['phone'],
-            contact_email = form.cleaned_data['email'],)
-            contact.save()
-
-            # FOR SENDING MAILS LATER NEED TO CONFIGURE SMTP SERVER FIRST
-            """
-            send_mail(
-            'Test',
-            'Test2',
-            'noreply@jobappS3.com',
-            [contact.contact_email],
-            fail_silently=True,
-            )"""
 
             return HttpResponseRedirect(reverse('company', args=(company.id,)))
 
@@ -84,7 +79,17 @@ def registerOld(request):
         else:
             return HttpResponse("an error occured!")
     else:
-        return render(request, 'jobapp/createAppl.html', {'form': RegisterForm})
+        return render(request, 'jobapp/registerCompany.html', {'form': RegisterForm})
+
+def registerJobOffer(request):
+    if request.method == 'POST':
+        form = RegisterJobOfferForm(request.POST,profile=request.user.profile)
+
+        form.save()
+        return HttpResponseRedirect(reverse('company', args=(form.cleaned_data['company'].id,)))
+    else:
+        form = RegisterJobOfferForm(profile=request.user.profile)
+        return render(request, 'jobapp/registerJobOffer.html', {'form': form})
 
 
 def register(request):
@@ -100,8 +105,15 @@ def register(request):
 
     return render(request, 'jobapp/register.html', {'form' : form})
 
+def profiles(request, username):
+    user_profile = User.objects.get(username = username)
+    profile = Profile.objects.get(id = user_profile.id)
+    companies = Company.objects.filter(profile = profile)
+    return render(request, 'jobapp/profiles.html', {'user_profile' : user_profile, 'companies' : companies})
+
 
 def profile(request):
+
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
@@ -111,6 +123,7 @@ def profile(request):
             return redirect('profile')
     else:
         form = ProfileForm(instance=request.user.profile)
-        return render(request, 'jobapp/profile.html', {'form': form})
+        companies = Company.objects.filter(profile = request.user.profile)
+        return render(request, 'jobapp/profile.html', {'form': form, 'companies': companies})
 
 # Create your views here.

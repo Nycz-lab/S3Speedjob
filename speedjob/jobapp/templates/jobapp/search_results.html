@@ -26,19 +26,29 @@
     </ul>
     {% endif %}
 
+    {% if offers %}
+    <h2>Job Offers:</h2>
+    <br>
+    <ul>
+      {% for offer in offers %}
+        <li> Company: {{offer.company.company_name}} Date: {{offer.offer_date}}  Description: {{offer.offer_description}}  Tag: {{offer.tag}}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
     {% if contact_list %}
     <h2>Contacts:</h2>
     <br>
     <ul>
       {% for contact in contact_list %}
         <li>
-          {{contact.contact_firstName}} {{contact.contact_lastName}}
+          {{contact.username}}
         </li>
       {% endfor %}
     </ul>
     {% endif %}
 
-    {% if not company_list and not contact_list %}
+    {% if not company_list and not contact_list and not offers %}
       <h2> nothing found... </h2>
     {% endif %}
     </div>
