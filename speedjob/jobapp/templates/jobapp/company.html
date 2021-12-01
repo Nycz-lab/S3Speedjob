@@ -4,8 +4,6 @@
 
   {% block content %}
 
-
-
     <div class="text-center">
 
       {% if auth %}
@@ -17,6 +15,7 @@
       <h2>Address: {{company.company_address_city}}, {{company.company_address_plz}}<h2>
       <h2> {{company.company_address_street}}</h2>
 
+      {% include 'jobapp/geo.html' %}
 
 
       {% if contact != None %}
