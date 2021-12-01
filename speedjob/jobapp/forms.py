@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from .models import Profile
+
 class RegisterForm(forms.Form):
     company_name = forms.CharField(label="Company Name", max_length=50)
     company_description = forms.CharField(label="Company Description", max_length=200, widget=forms.Textarea)
@@ -22,3 +24,9 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+
+class ProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ['image']

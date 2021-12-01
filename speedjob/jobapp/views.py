@@ -6,13 +6,13 @@ from django.urls import reverse
 from django.core.mail import send_mail
 
 from .models import Company, Contact
-from .forms import RegisterForm, UserRegistrationForm
+from .forms import RegisterForm, UserRegistrationForm, ProfileForm
 
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 
 from django.db.models import Q
-
+from django.contrib.auth.models import User
 
 
 def index(request):
@@ -82,7 +82,7 @@ def registerOld(request):
 
 
         else:
-            return HttpResponse("and error occured!")
+            return HttpResponse("an error occured!")
     else:
         return render(request, 'jobapp/createAppl.html', {'form': RegisterForm})
 
@@ -100,7 +100,17 @@ def register(request):
 
     return render(request, 'jobapp/register.html', {'form' : form})
 
+
 def profile(request):
-    return render(request, 'jobapp/profile.html')
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+
+            form.save()
+            messages.success(request, f'Your picture has been saved!')
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=request.user.profile)
+        return render(request, 'jobapp/profile.html', {'form': form})
 
 # Create your views here.
