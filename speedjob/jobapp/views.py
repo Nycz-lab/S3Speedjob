@@ -39,7 +39,7 @@ def search(request):
     query = request.GET.get('q')
     if query:
         company_list = Company.objects.filter(
-            Q(company_name__icontains=query) & Q(company_approved__icontains = True)
+            Q(company_name__icontains=query), company_approved = True
         ).order_by('company_name')
         job_offer_list = JobOffer.objects.filter(
             Q(tag__word__icontains=query), company__company_approved = True
