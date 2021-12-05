@@ -32,11 +32,6 @@ class RegisterJobOfferForm(forms.ModelForm):
         fields = ['company', 'offer_description', 'tag']
         exclude = ['offer_date']
 
-    tag = forms.ModelMultipleChoiceField(
-        queryset = Tag.objects.all(),
-        widget = forms.CheckboxSelectMultiple
-
-    )
 
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(max_length = 100)
