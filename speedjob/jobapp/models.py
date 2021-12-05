@@ -3,6 +3,17 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+GENDER_CHOICES = (
+(1, ('Male')),
+(2, ('Female')),
+(3, ('Other'))
+)
+
+AFFILIATION_CHOICES = (
+(1, ('Employee')),
+(2, ('Company-Employer'))
+)
+
 class Tag(models.Model):
     word = models.CharField(max_length=20)  # hashtag for tagging
 
@@ -13,6 +24,17 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) # 1-1 relationship
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     tag = models.ManyToManyField(Tag)   # n to n relationship
+    gender = models.PositiveSmallIntegerField(('gender'),
+                                                choices = GENDER_CHOICES,
+                                                blank=True,
+                                                null=True)
+    age = models.IntegerField(blank=False, null=True)
+    type = models.PositiveSmallIntegerField(('affiliation'),
+                                                choices = AFFILIATION_CHOICES,
+                                                blank = False,
+                                                null = False,
+                                                default = 1)
+
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -20,9 +42,9 @@ class Profile(models.Model):
 class Company(models.Model):
     company_name = models.CharField(max_length=50)
     company_description = models.CharField(max_length=200, default = "not provided")
-    company_address_city = models.CharField(max_length=200, default = "not provided")
-    company_address_plz = models.CharField(max_length=200, default = "not provided")
-    company_address_street = models.CharField(max_length=200, default = "not provided")
+    company_address_city = models.CharField(max_length=200, blank = False, null = False)
+    company_address_plz = models.IntegerField(blank = False, null = False)
+    company_address_street = models.CharField(max_length=200, blank = False, null = False)
     company_approved = models.BooleanField(default = False)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE) # 1 to n relationship
 

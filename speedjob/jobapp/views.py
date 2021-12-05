@@ -103,7 +103,7 @@ def register(request):                                                          
     else:
         form = UserRegistrationForm()
 
-    return render(request, 'jobapp/register.html', {'form' : form})
+    return render(request, 'accounts/register.html', {'form' : form})
 
 def profiles(request, username):                                                             # display profiles from db
     user_profile = User.objects.get(username = username)
