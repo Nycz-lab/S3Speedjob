@@ -1,11 +1,16 @@
 {% extends 'jobapp/header.html' %}
 
   {% block content %}
-
+      <div class="text-center">
       {% if user.is_authenticated %}
       <h1>Hello, {{user.username}}. You're on the SpeedJob S3 Website!</h1>
       {% else %}
       <h1>Hello, unknown. You're on the SpeedJob S3 Website!</h1>
       {% endif %}
+
+      {% if DEBUG %}
+      <h2> DEBUG MODE IS ENABLED </h2>
+      {% endif %}
+      </div>
 
   {% endblock %}

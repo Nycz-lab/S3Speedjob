@@ -17,20 +17,20 @@
     <div class="text-center">
       {% if user.is_authenticated %}
 
-      <h1>User Profile: {{user.username}}</h1><br>
-      <img class="account_pic" src="{{user.profile.image.url}}">
+        {% if user.username == user_profile.username %}
+          <h1> You are currently viewing your own Profile!<br>
+          In order to edit your profile <a href='{% url 'profile' %}'> click here: </a> </h1>
+        {% endif %}
+
+      <h1>User Profile: {{user_profile.username}}</h1><br>
+      <img class="account_pic" src="{{user_profile.profile.image.url}}">
       <h3>
-        Name: {{user.last_name}} {{user.first_name}}<br>
-        Email: {{user.email}}<br>
-        Password(Hashed): {{user.password}}<br>
+        Name: {{user_profile.last_name}} {{user_profile.first_name}}<br>
+        Email: {{user_profile.email}}<br>
 
 
       </h3>
-      <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Upload</button>
-      </form>
+
         {% if companies %}
         <h2> Registered Companies: </h2>
         <ul>
@@ -43,6 +43,7 @@
         {% endfor %}
         </ul>
         {% endif %}
+
       {% else %}
       <h3>Please login to use this feature</h3>
       {% endif %}

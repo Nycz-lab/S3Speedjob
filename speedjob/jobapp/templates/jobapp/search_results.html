@@ -4,6 +4,34 @@
 
   {% block content %}
 
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+  <style>
+    .modern-table {
+
+        border-collapse: collapse;
+        margin: auto;
+        font-size: 0.9em;
+        font-family: Roboto;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .modern-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+}
+    .modern-table a {
+    text-decoration: none;
+    color: black;
+    }
+
+    .modern-table a:hover {
+      color: white;
+    }
+
+
+  </style>
+
       <div class="text-center">
     <h1>Search Results</h1>
 
@@ -17,13 +45,47 @@
     {% if company_list %}
     <h2>Companies:</h2>
     <br>
-    <ul>
+    <table class="modern-table">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
       {% for company in company_list %}
-        <li>
-          <a href="{% url 'company' company.id %}">{{company.company_name}}</a>
-        </li>
+        <tr>
+          <td><a href="{% url 'company' company.id %}">{{company.company_name}}</a></td>
+          <td>{{company.company_description}}</td>
+        </tr>
       {% endfor %}
-    </ul>
+    </tbody>
+    </table>
+    {% endif %}
+
+    {% if offers %}
+    <h2>Job Offers:</h2>
+    <br>
+    <table class="modern-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Company</th>
+          <th>Description</th>
+          <th>Tag</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for offer in offers %}
+      <tr>
+        <td>{{offer.offer_date}}</td>
+        <td>{{offer.company.company_name}}</td>
+        <td>{{offer.offer_description}}</td>
+        <td>{{offer.tag}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
     {% endif %}
 
     {% if contact_list %}
@@ -32,13 +94,13 @@
     <ul>
       {% for contact in contact_list %}
         <li>
-          {{contact.contact_firstName}} {{contact.contact_lastName}}
+          {{contact.username}}
         </li>
       {% endfor %}
     </ul>
     {% endif %}
 
-    {% if not company_list and not contact_list %}
+    {% if not company_list and not contact_list and not offers %}
       <h2> nothing found... </h2>
     {% endif %}
     </div>

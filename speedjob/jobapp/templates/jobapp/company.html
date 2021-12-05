@@ -5,19 +5,43 @@
   {% block content %}
 
     <div class="text-center">
+
+      {% if auth %}
+        <h2> You registered this Company!</h2>
+        <a href= "{% url 'registerJobOffer' %}"><h2>Create Job Offer</h2></a>
+      {% endif %}
+
       <h1>{{company.id}} Name: {{company.company_name}} Descr: {{company.company_description}}</h1>
       <h2>Address: {{company.company_address_city}}, {{company.company_address_plz}}<h2>
       <h2> {{company.company_address_street}}</h2>
 
+      {% include 'jobapp/geo.html' %}
+
+
       {% if contact != None %}
       <br>
       <h1>Contact:</h1>
-      <h2>Name: {{contact.contact_lastName}} {{contact.contact_firstName}}</h2>
-      <h3>Phone: {{contact.contact_phone}}<h3>
-      <h3>Email: {{contact.contact_email}}</h3>
+      <a href="{% url 'profiles' contact.user.username %}" ><h3>Profile</h3></a>
+      <h3>Username: {{contact.user.username}}</h3>
+      <h3>Name: {{contact.user.last_name}} {{contact.user.first_name}}</h3>
+      <h3>Email: {{contact.user.email}}</h3>
       {% else %}
       <h1>No Contact Information</h1>
       {% endif %}
+
+      {% if offers %}
+      <h2>Job Offers:</h2>
+        <ul>
+        {% for offer in offers %}
+          <li>  Date: {{offer.offer_date}}  Description: {{offer.offer_description}}  Tag: {{offer.tag}}  </li>
+        {% endfor %}
+        </ul>
+      {% else %}
+      <h2> Currently there are no open job offers :c </h2>
+      {% endif %}
     </div>
+
+
+
 
   {% endblock %}
