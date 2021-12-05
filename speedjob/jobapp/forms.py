@@ -36,7 +36,7 @@ class RegisterJobOfferForm(forms.ModelForm):
         queryset = Tag.objects.all(),
         widget = forms.CheckboxSelectMultiple
 
-    )    
+    )
 
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(max_length = 100)
@@ -56,6 +56,7 @@ class ProfileForm(forms.ModelForm):
         fields = ['image', 'tag', 'gender', 'age', 'type']
 
     tag = forms.ModelMultipleChoiceField(
+        required = False,
         queryset = Tag.objects.all(),
         widget = forms.CheckboxSelectMultiple
 
