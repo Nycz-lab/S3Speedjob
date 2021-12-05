@@ -1,33 +1,34 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect                            # for rendering templates, throwing 404s and redirecting
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect                                  # for returning HttpResponse Objects
 from django.urls import reverse
 
-from django.core.mail import send_mail
+from django.core.mail import send_mail                                                      # for mail managing (smtp)
 
-from .models import Company, Profile, JobOffer
-from .forms import RegisterForm, UserRegistrationForm, ProfileForm, RegisterJobOfferForm
+from .models import Company, Profile, JobOffer                                              # Database Models
+from .forms import RegisterForm, UserRegistrationForm, ProfileForm, RegisterJobOfferForm    # Django Forms for given Database Models
 
-from django.contrib.auth import login, authenticate
-from django.contrib import messages
+from django.contrib.auth import login, authenticate                                         # django standard authentication methods
+from django.contrib import messages                                                         # for sending messages and displaying via html
 
-from django.db.models import Q
-from django.contrib.auth.models import User
+from django.db.models import Q                                                              # SQL Queries
+from django.contrib.auth.models import User                                                 # predefined django user model
 
+from django.conf import settings                                                            # mainly for checking if DEBUG mode is enabled
 
-def index(request):
-    return render(request, 'jobapp/index.html')
+def index(request):                                                                         # Index Site
+    return render(request, 'jobapp/index.html', {'DEBUG': settings.DEBUG})
 
-def companies(request):
+def companies(request):                                                                     # display all company objects
     return render(request, 'jobapp/companies.html', {'companies' : Company.objects.all()})
 
 
-def company(request, id):
+def company(request, id):                                                                   # display specific company object
     contact = Profile.objects.get(company = id)
     job_offers = JobOffer.objects.filter(company= id).order_by('offer_date')
     auth = False
     try:
-        if(contact == request.user.profile):
+        if(contact == request.user.profile):    #check if current user registered company
             auth = True
     except Exception:
             auth = False
@@ -35,9 +36,9 @@ def company(request, id):
     return render(request, 'jobapp/company.html', {'company' : get_object_or_404(Company, id=id),
      'contact' : contact, 'auth': auth, 'offers': job_offers})
 
-def search(request):
-    query = request.GET.get('q')
-    if query:
+def search(request):                                                                        # search database for specific input query
+    query = request.GET.get('q')                                            # read query from url via GET http method
+    if query:                                                               # if there is a query
         company_list = Company.objects.filter(
             Q(company_name__icontains=query), company_approved = True
         ).order_by('company_name')
@@ -47,19 +48,18 @@ def search(request):
         contact_list = User.objects.filter(
             Q(username__icontains=query) | Q(first_name__icontains=query)
         ).order_by('username')
-        print(contact_list)
         return render(request, 'jobapp/search_results.html', {'company_list' : company_list, 'offers' : job_offer_list,'contact_list' : contact_list})
     else:
         return render(request, 'jobapp/search.html')
 
 
 
-def registerCompany(request):
+def registerCompany(request):                                                                # register company to database
 
-    if request.method == "POST":
+    if request.method == "POST":    # check if data was POSTED via http to url
         form = RegisterForm(request.POST)
 
-        if form.is_valid():
+        if form.is_valid():         # check if form was filled correctly
 
 
 
@@ -81,7 +81,7 @@ def registerCompany(request):
     else:
         return render(request, 'jobapp/registerCompany.html', {'form': RegisterForm})
 
-def registerJobOffer(request):
+def registerJobOffer(request):                                                              # register job offer
     if request.method == 'POST':
         form = RegisterJobOfferForm(request.POST,profile=request.user.profile)
 
@@ -92,7 +92,7 @@ def registerJobOffer(request):
         return render(request, 'jobapp/registerJobOffer.html', {'form': form})
 
 
-def register(request):
+def register(request):                                                                      # register user
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
@@ -105,14 +105,14 @@ def register(request):
 
     return render(request, 'jobapp/register.html', {'form' : form})
 
-def profiles(request, username):
+def profiles(request, username):                                                             # display profiles from db
     user_profile = User.objects.get(username = username)
     profile = Profile.objects.get(id = user_profile.id)
     companies = Company.objects.filter(profile = profile)
     return render(request, 'jobapp/profiles.html', {'user_profile' : user_profile, 'companies' : companies})
 
 
-def profile(request):
+def profile(request):                                                                       # display current user profile
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
