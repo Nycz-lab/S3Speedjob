@@ -1,15 +1,14 @@
-
 {% extends 'jobapp/header.html' %}
 
-  {% block content %}
+{% block content %}
 
-      <div class="text-center">
-    <h1>Search</h1>
-      <a href="{% url 'companies' %}">All Companies</a>
-      <br><br>
-      <form action="{% url 'search' %}">
-        <input name="q" type="text" placeholder="Search...">
-      </form>
-    </div>
+<div class="text-center">
+  <h1>Search</h1>
+  <a href="{% url 'companies' %}">All Companies</a>
+  <br><br>
+  <form action="{% url 'search' %}">
+    <input name="q" type="text" placeholder="Search...">
+  </form>
+</div>
 
-  {% endblock %}
+{% endblock %}

@@ -1,41 +1,24 @@
 {% extends 'jobapp/header.html' %}
 
-  {% block content %}
+{% block content %}
 
-  <style>
-    .account_pic{
-    width:100%;
-    max-width:200px;
-    max-height:200px;
+<style>
+  .account_pic {
+    width: 100%;
+    max-width: 200px;
+    max-height: 200px;
     border-style: solid;
     border-width: 5px;
-    border-radius:150px;
-    }
+    border-radius: 150px;
+  }
+</style>
 
-  </style>
+{% load static %}
+<script src="{% static 'jobapp/js/profile.js' %}"></script>
 
-  <script>
-
-    let toggle = false;
-
-    window.onload = function() {
-      document.getElementById('collapseThis').style.display='None';
-    };
-
-    function toggleForm(){
-      toggle = !toggle;
-
-      if(toggle)
-        document.getElementById('collapseThis').style.display='inline-block';
-      else
-        document.getElementById('collapseThis').style.display='None';
-
-    }
-
-  </script>
 <div class="text-center">
-    <div class="content_block">
-      <div class="text-center">
+  <div class="content_block">
+    <div class="text-center">
       {% if user.is_authenticated %}
 
       <h1>User Profile: {{user.username}}</h1><br>
@@ -46,30 +29,47 @@
 
 
       </h3>
-      <button class="stylized_button" onclick="toggleForm()">Edit</button>
-      </div>
 
-      </div>
-      <form id='collapseThis' method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Upload</button>
-      </form>
-        {% if companies %}
+
+
+
+
+
+      {% if companies %}
+      <div class="content_block">
         <h2> Registered Companies: </h2>
         <ul>
-        {% for company in companies %}
+          {% for company in companies %}
 
           <li><a href='{% url 'company' company.id %}' <h3>{{company.company_name}}</h3></a>
-          {% if company.company_approved %} Approved! {% else %} Waiting for Approval... {% endif %}
+            {% if company.company_approved %} Approved! :) {% else %} Waiting for Approval... {% endif %}
           </li>
 
-        {% endfor %}
+          {% endfor %}
         </ul>
-        {% endif %}
-      {% else %}
-      <h3>Please login to use this feature</h3>
+      </div>
       {% endif %}
     </div>
+  </div>
+</div>
 
-  {% endblock %}
+<div class="text-center">
+  <div class="content_block">
+    <div class="text-center">
+      <button class="stylized_button" onclick="toggleForm()">Edit</button>
+      <br>
+      <form id='collapseThis' method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<h3>Please login to use this feature</h3>
+{% endif %}
+
+
+{% endblock %}
