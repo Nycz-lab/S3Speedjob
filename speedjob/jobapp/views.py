@@ -134,7 +134,7 @@ def activate(request, uid, token):                                      # activa
         user = User.objects.get(id=uid)
 
 
-        if default_token_generator.check_token(user, token) and user.is_active == 0:
+        if default_token_generator.check_token(user, token) and user.is_active == 0:        #check if token and uid are correct
             user.is_active = 1
             user.save()
             return render(request, 'accounts/activate.html')
