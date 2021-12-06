@@ -139,7 +139,7 @@ def activate(request, uid, token):                                      # activa
             user.save()
             return render(request, 'accounts/activate.html')
 
-        return HttpResponse("ERROR")
+        return HttpResponse("ERROR")                                    #error handling
     return HttpResponse("FATAL ERROR")
 
 
