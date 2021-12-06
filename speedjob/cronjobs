@@ -1,0 +1,2 @@
+* * * * * /bin/sh -c 'cd /home/pi/S3Speedjob && /usr/bin/git pull -q origin development' >> /home/pi/debug.log
+* */12 * * * /bin/sh /home/pi/backups/auto_backup.sh >> /home/pi/backups/debug.log
