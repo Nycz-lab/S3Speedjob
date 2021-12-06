@@ -14,7 +14,28 @@
 
   </style>
 
-    <div class="text-center">
+  <script>
+
+    let toggle = false;
+
+    window.onload = function() {
+      document.getElementById('collapseThis').style.display='None';
+    };
+
+    function toggleForm(){
+      toggle = !toggle;
+
+      if(toggle)
+        document.getElementById('collapseThis').style.display='inline-block';
+      else
+        document.getElementById('collapseThis').style.display='None';
+
+    }
+
+  </script>
+<div class="text-center">
+    <div class="content_block">
+      <div class="text-center">
       {% if user.is_authenticated %}
 
       <h1>User Profile: {{user.username}}</h1><br>
@@ -26,7 +47,11 @@
 
 
       </h3>
-      <form method="post" enctype="multipart/form-data">
+      <button class="stylized_button" onclick="toggleForm()">Edit</button>
+      </div>
+
+      </div>
+      <form id='collapseThis' method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit">Upload</button>

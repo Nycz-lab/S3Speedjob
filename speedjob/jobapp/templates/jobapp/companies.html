@@ -22,6 +22,7 @@
   </style>
 
       <div class="text-center">
+        <div class="content_block">
         <ul class="list-group">
       {% for company in companies %}
       {% if company.company_approved == True %}
@@ -29,6 +30,7 @@
       {% endif %}
       {% endfor %}
     </ul>
+    </div>
     </div>
 
   {% endblock %}

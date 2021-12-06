@@ -2,6 +2,8 @@
 
   {% block content %}
       <div class="text-center">
+        <div class="content_block">
+          <div class="text-center">
       {% if user.is_authenticated %}
       <h1>Hello, {{user.username}}. You're on the SpeedJob S3 Website!</h1>
       {% else %}
@@ -11,6 +13,8 @@
       {% if DEBUG %}
       <h2> DEBUG MODE IS ENABLED </h2>
       {% endif %}
+      </div>
+      </div>
       </div>
 
   {% endblock %}
