@@ -130,7 +130,7 @@ def register(request):                                                          
 def activate(request, uid, token):                                      # activate account via email confirmation
 
     if uid and token:
-        uid = urlsafe_base64_decode(uid)
+        uid = urlsafe_base64_decode(uid)                    # generate url from encoded uid and user token
         user = User.objects.get(id=uid)
 
 
@@ -138,7 +138,7 @@ def activate(request, uid, token):                                      # activa
             user.is_active = 1
             user.save()
             return render(request, 'accounts/activate.html')
-            
+
         return HttpResponse("ERROR")
     return HttpResponse("FATAL ERROR")
 
