@@ -94,7 +94,7 @@
     <ul>
       {% for contact in contact_list %}
         <li>
-          {{contact.username}}
+          <a href='{% url 'profiles' contact.username %}'>{{contact.username}}</a>
         </li>
       {% endfor %}
     </ul>

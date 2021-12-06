@@ -1,0 +1,17 @@
+{% extends 'jobapp/header.html' %}
+
+  {% block content %}
+
+  <div class="text-center">
+    <h3>Login Here!</h3>
+      <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+        <br>
+        <a href='{% url 'register' %}'>Need an account?</a>
+        <a href='{% url 'password_reset' %}'>Forgot Password?</a>
+      </form>
+  </div>
+
+  {% endblock %}

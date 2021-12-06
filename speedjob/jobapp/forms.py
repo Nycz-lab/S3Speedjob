@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Profile, Company, JobOffer
+from .models import Profile, Company, JobOffer, Tag
 
 from django.db.models import Q
 
@@ -32,6 +32,7 @@ class RegisterJobOfferForm(forms.ModelForm):
         fields = ['company', 'offer_description', 'tag']
         exclude = ['offer_date']
 
+
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(max_length = 100)
     last_name = forms.CharField(max_length = 100)
@@ -47,4 +48,11 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['image', 'tag']
+        fields = ['image', 'tag', 'gender', 'age', 'type']
+
+    tag = forms.ModelMultipleChoiceField(
+        required = False,
+        queryset = Tag.objects.all(),
+        widget = forms.CheckboxSelectMultiple
+
+    )
