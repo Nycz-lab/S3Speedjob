@@ -107,7 +107,10 @@ def register(request):                                                          
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.id))
 
-            message = f"{request.get_host()}/activate/{uid}/{token}/"
+            url = f"{request.get_host()}/activate/{uid}/{token}/"               # change this to support html code later!
+            message = f"Nice to meet you {user.username}!\n         \
+            Click the following link to activate your account!\n    \
+            {url}"
 
             send_mail(
             'Confirm Email',
