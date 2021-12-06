@@ -16,6 +16,10 @@ from django.contrib.auth.models import User                                     
 
 from django.conf import settings                                                            # mainly for checking if DEBUG mode is enabled
 
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+
 def index(request):                                                                         # Index Site
     return render(request, 'jobapp/index.html', {'DEBUG': settings.DEBUG})
 
@@ -96,14 +100,48 @@ def register(request):                                                          
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save(commit = False)
+            user.is_active = False
+            user.save()
 
-            messages.success(request, f'Your account has been created. You can log in now!')
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.id))
+
+            message = f"{request.get_host()}/activate/{uid}/{token}/"
+
+            send_mail(
+            'Confirm Email',
+            message,
+            's3jobs@s3jobs.ddns.net',
+            [user.email],
+            fail_silently=False,
+            )
+
+            if settings.DEBUG:
+                print(f"New User: token: {token} uid: {uid}")
+
+            messages.success(request, f'Your account has been created. Confirm your Email now!')
             return redirect('login')
     else:
         form = UserRegistrationForm()
 
     return render(request, 'accounts/register.html', {'form' : form})
+
+def activate(request, uid, token):                                      # activate account via email confirmation
+
+    if uid and token:
+        uid = urlsafe_base64_decode(uid)
+        user = User.objects.get(id=uid)
+
+
+        if default_token_generator.check_token(user, token) and user.is_active == 0:
+            user.is_active = 1
+            user.save()
+            return render(request, 'accounts/activate.html')
+            
+        return HttpResponse("ERROR")
+    return HttpResponse("FATAL ERROR")
+
 
 def profiles(request, username):                                                             # display profiles from db
     user_profile = User.objects.get(username = username)

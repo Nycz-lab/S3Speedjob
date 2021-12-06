@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+User._meta.get_field('email')._unique = True    # set email field on user table to unique so that a email can only be used once
+
 GENDER_CHOICES = (
 (1, ('Male')),
 (2, ('Female')),
@@ -23,7 +25,7 @@ class Tag(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) # 1-1 relationship
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    tag = models.ManyToManyField(Tag, blank=True, null=True)   # n to n relationship
+    tag = models.ManyToManyField(Tag, blank=True)   # n to n relationship
     gender = models.PositiveSmallIntegerField(('gender'),
                                                 choices = GENDER_CHOICES,
                                                 blank=True,
