@@ -30,7 +30,7 @@
       <ul>
       {% for acc in users %}
           <a href='{% url 'profiles' acc.username %}'>
-            <img src="{{acc.profile.image.url}}" style="width:20%; height:20%;">
+            <img src="{{acc.profile.image.url}}" style="width:20%; height:20%;" class="rounded_corners">
             <li> {{acc.username}} </li></a>
 
       {% endfor %}
