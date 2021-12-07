@@ -19,6 +19,18 @@
 
       {% load static %}
       <img id="replaceable" style="cursor:pointer;"onclick="change()" class="rounded_corners" src="{% static 'jobapp/img/yeah_baby.gif' %}">
+
+      {% if users %}
+      <h2>Team:</h2>
+      <ul>
+      {% for acc in users %}
+          <a href='{% url 'profiles' acc.username %}'>
+            <img src="{{acc.profile.image.url}}" style="width:5%; height:5%;">
+            <li> {{acc.username}} </li></a>
+
+      {% endfor %}
+    </ul>
+      {% endif %}
     </div>
   </div>
 </div>
