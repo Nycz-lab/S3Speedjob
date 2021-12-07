@@ -19,6 +19,10 @@ body {
   }
 }
 
+@media only screen and (max-width: 760px) {
+.hideOnMobile { display: none; }
+}
+
 .rounded_corners{
   border-radius:20px;
 }
