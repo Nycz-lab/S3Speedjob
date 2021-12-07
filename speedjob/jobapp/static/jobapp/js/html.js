@@ -1,3 +1,8 @@
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    document.getElementById('replaceable').style.display='None';
+}
+
+
 function change() {
   let a = document.createElement('iframe')
   a.width = "560"
