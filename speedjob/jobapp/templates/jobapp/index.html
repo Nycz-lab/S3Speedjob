@@ -2,8 +2,8 @@
 
 {% block content %}
 
-
-
+{% load static %}
+<script src="{% static 'jobapp/js/html.js' %}"></script>
 <div class="text-center">
   <div class="content_block">
     <div class="text-center">
@@ -18,7 +18,7 @@
       {% endif %}
 
       {% load static %}
-      <img class="rounded_corners" src="{% static 'jobapp/img/yeah_baby.gif' %}">
+      <img id="replaceable" style="cursor:pointer;"onclick="change()" class="rounded_corners" src="{% static 'jobapp/img/yeah_baby.gif' %}">
     </div>
   </div>
 </div>
