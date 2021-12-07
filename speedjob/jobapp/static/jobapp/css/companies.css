@@ -1,0 +1,21 @@
+.company {
+  text-decoration: none;
+  color: black;
+}
+
+.company:hover {
+  animation-name: fade;
+  animation-duration: .5s;
+}
+
+@keyframes fade {
+  from {
+    color: black;
+    text-decoration: none;
+  }
+
+  to {
+    color: white;
+    text-decoration: underline;
+  }
+}

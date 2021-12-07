@@ -1,34 +1,22 @@
-
-
 {% extends 'jobapp/header.html' %}
 
-  {% block content %}
+{% block content %}
 
-  <style>
-    .company {
-        text-decoration: none;
-        color: black;
-    }
+{% load static %}
+<link href="{% static 'jobapp/css/companies.css' %}" rel="stylesheet">
 
-    .company:hover{
-      animation-name: fade;
-      animation-duration: .5s;
-    }
-
-    @keyframes fade {
-      from { color: black; text-decoration: none;}
-      to {color: white; text-decoration: underline;}
-    }
-  </style>
-
-      <div class="text-center">
-        <ul class="list-group">
+<div class="text-center">
+  <div class="content_block">
+    <ul class="list-group">
       {% for company in companies %}
       {% if company.company_approved == True %}
-        <h3><li><a class="company" href={% url 'company' company.id %}>{{company.id}} Name: {{company.company_name}} Descr: {{company.company_description}}</li></h3>
+      <h3>
+        <li><a class="company" href={% url 'company' company.id %}>{{company.id}} Name: {{company.company_name}} Descr: {{company.company_description}}</li>
+      </h3>
       {% endif %}
       {% endfor %}
     </ul>
-    </div>
+  </div>
+</div>
 
-  {% endblock %}
+{% endblock %}

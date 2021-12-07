@@ -107,7 +107,10 @@ def register(request):                                                          
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.id))
 
-            message = f"{request.get_host()}/activate/{uid}/{token}/"
+            url = f"{request.get_host()}/activate/{uid}/{token}/"               # change this to support html code later!
+            message = f"Nice to meet you {user.username}!\n         \
+            Click the following link to activate your account!\n    \
+            {url}"
 
             send_mail(
             'Confirm Email',
@@ -130,16 +133,16 @@ def register(request):                                                          
 def activate(request, uid, token):                                      # activate account via email confirmation
 
     if uid and token:
-        uid = urlsafe_base64_decode(uid)
+        uid = urlsafe_base64_decode(uid)                    # generate url from encoded uid and user token
         user = User.objects.get(id=uid)
 
 
-        if default_token_generator.check_token(user, token) and user.is_active == 0:
+        if default_token_generator.check_token(user, token) and user.is_active == 0:        #check if token and uid are correct
             user.is_active = 1
             user.save()
             return render(request, 'accounts/activate.html')
-            
-        return HttpResponse("ERROR")
+
+        return HttpResponse("ERROR")                                    #error handling
     return HttpResponse("FATAL ERROR")
 
 

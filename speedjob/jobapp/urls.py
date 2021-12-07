@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
 
 from . import views
 
@@ -26,4 +27,9 @@ urlpatterns = [
 
     path('profile/', views.profile, name='profile'),
     path('profile/<str:username>', views.profiles, name='profiles'),
+
+    path(
+        "favicon.ico",
+        RedirectView.as_view(url=staticfiles_storage.url("favicon.ico")),
+    ),
 ]
