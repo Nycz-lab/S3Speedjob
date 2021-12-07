@@ -40,9 +40,8 @@
         {% if user.is_authenticated %}
         {% if user.is_superuser %}
         <a class="btn btn-warning" href="/admin">Admin</a>
-        {% else %}
-        <a class="btn btn-warning" href="{% url 'profile' %}">Profile</a>
         {% endif %}
+        <a class="btn btn-warning" href="{% url 'profile' %}">Profile</a>
         <a class="btn btn-warning" href="{% url 'logout' %}">Logout</a>
         {% else %}
         <a class="btn btn-warning" href="{% url 'login' %}">Login</a>
