@@ -3,6 +3,7 @@
 {% block content %}
 
 
+
 <div class="text-center">
   <div class="content_block">
     <div class="text-center">
@@ -15,6 +16,9 @@
       {% if DEBUG %}
       <h2> DEBUG MODE IS ENABLED </h2>
       {% endif %}
+
+      {% load static %}
+      <img class="rounded_corners" src="{% static 'jobapp/img/yeah_baby.gif' %}">
     </div>
   </div>
 </div>

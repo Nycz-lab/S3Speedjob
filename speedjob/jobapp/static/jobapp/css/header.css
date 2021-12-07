@@ -19,6 +19,10 @@ body {
   }
 }
 
+.rounded_corners{
+  border-radius:20px;
+}
+
 form {
   font-family: Roboto;
   display: inline-block;
