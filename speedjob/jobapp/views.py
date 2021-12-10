@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from django.core.mail import send_mail                                                      # for mail managing (smtp)
 
-from .models import Company, Profile, JobOffer                                              # Database Models
+from .models import Company, Profile, JobOffer, Tag                                            # Database Models
 from .forms import RegisterForm, UserRegistrationForm, ProfileForm, RegisterJobOfferForm    # Django Forms for given Database Models
 
 from django.contrib.auth import login, authenticate                                         # django standard authentication methods
@@ -20,8 +20,41 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 
+def retrieveTags(profiles):                                                         # stupid but havent found another way yet
+    TagProfile = Tag.profiles.through
+
+    staff_tags = {}
+    for profile in profiles:
+        staff_tags[profile] = []
+        for tag_id in TagProfile.objects.filter(profile=profile).values('tag_id'):
+            staff_tags[profile].append(tag_id['tag_id'])
+
+
+
+    tag_words = {}
+    for profile in staff_tags:
+        tag_words[profile] = []
+        for tags in range(0, len(staff_tags[profile])):
+            tag_words[profile].append(Tag.objects.get(id=staff_tags[profile][tags]))
+
+
+    return tag_words
+
 def index(request):                                                                         # Index Site
-    return render(request, 'jobapp/index.html', {'DEBUG': settings.DEBUG})
+
+    TagProfile = Tag.profiles.through
+
+
+    staff_accs = User.objects.filter(is_staff=True)
+    staff_profiles = Profile.objects.filter(id__in=staff_accs.values('pk'))
+
+    tag_words = retrieveTags(staff_profiles)
+    print(staff_accs)
+
+
+    print(tag_words)
+    return render(request, 'jobapp/index.html', {'DEBUG': settings.DEBUG,
+    'users':staff_accs, 'tags': tag_words})
 
 def companies(request):                                                                     # display all company objects
     return render(request, 'jobapp/companies.html', {'companies' : Company.objects.all()})
