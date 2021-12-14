@@ -5,10 +5,7 @@
 {% load static %}
 <script src="{% static 'jobapp/js/html.js' %}"></script>
 
-
-<div class="text-center">
-  <div class="content_block">
-    <div class="text-center">
+<section class="blue">
       {% if user.is_authenticated %}
       <h1>Hello, {{user.username}}. You're on the SpeedJob S3 Website!</h1>
       {% else %}
@@ -21,25 +18,29 @@
 
       {% load static %}
       <img id="replaceable" class="hideOnMobile rounded_corners" style="cursor:pointer; "onclick="change()" src="{% static 'jobapp/img/yeah_baby.gif' %}">
+</section>
+<section class="dark" style="padding-top: 30vh;">
 
       {% if users %}
-      <br>
-      <div class="content_block" style="width:30%">
+      <div">
         <div class="text-center">
       <h2>Team:</h2>
-      <ul>
+      <ul class="stylized-list">
       {% for acc in users %}
           <a href='{% url 'profiles' acc.username %}'>
-            <img src="{{acc.profile.image.url}}" style="width:20%; height:20%;" class="rounded_corners">
-            <li> {{acc.username}} </li></a>
+            <li><img src="{{acc.profile.image.url}}" style="width:20%; height:20%;" class="rounded_corners"> {{acc.username}} </li></a>
+            
 
       {% endfor %}
     </ul>
-    </div>
-    </div>
       {% endif %}
     </div>
+
+    <div class="wave">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+      </svg>
   </div>
-</div>
+</section>
 
 {% endblock %}
