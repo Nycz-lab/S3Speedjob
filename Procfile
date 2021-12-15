@@ -1,1 +1,1 @@
-web: gunicorn speedjob.wsgi --log-file -
+web: gunicorn speedjob.wsgi

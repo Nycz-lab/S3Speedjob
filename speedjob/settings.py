@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-=======
     'whitenoise.runserver_nostatic',        #wsgi
     'django.contrib.staticfiles',
     'jobapp',
