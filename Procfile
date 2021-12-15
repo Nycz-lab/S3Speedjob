@@ -1,1 +1,0 @@
-web: gunicorn speedjob.wsgi --log-file -

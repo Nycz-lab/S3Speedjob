@@ -114,4 +114,5 @@ dmypy.json
 .pyre/
 
 media/
+migrations/
 .vscode/
