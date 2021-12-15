@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+=======
     'whitenoise.runserver_nostatic',        #wsgi
     'django.contrib.staticfiles',
     'jobapp',
@@ -147,7 +148,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
-
 
 #static file handling with wsgi
 WHITENOISE_USE_FINDERS = True

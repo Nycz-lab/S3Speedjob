@@ -81,4 +81,34 @@ form p {
   text-align: center;
 }
 
+.notification{
+
+  display:flex;
+  justify-content: left;
+  border-radius: 10px;
+  animation-name: fadeBounce;
+  animation-duration: 10s;
+  opacity: 0;
+  padding: 2% 5%;
+  max-width:30%;
+  max-height:20%;
+}
+
+.error_not{
+  
+  background-color: #f44336;
+  color:white;
+}
+
+.success_not{
+  background-color: blue;
+  color:white;
+}
+
+@keyframes fadeBounce{
+  0% {opacity: 0;}
+  40% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
 
