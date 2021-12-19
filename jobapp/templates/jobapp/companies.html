@@ -13,7 +13,7 @@
       {% for company in companies %}
       {% if company.company_approved == True %}
       <h3>
-        <a class="company" href={% url 'company' company.id %}><li class="fadeRightText">{{company.id}} Name: {{company.company_name}} Descr: {{company.company_description}}</li></a>
+        <a class="company" href={% url 'company' company.id %}><li>{{company.id}} Name: {{company.company_name}} Descr: {{company.company_description}}</li></a>
       </h3>
       {% endif %}
       {% endfor %}

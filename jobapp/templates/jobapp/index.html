@@ -6,21 +6,18 @@
 <script src="{% static 'jobapp/js/html.js' %}"></script>
 
 <section class="blue">
-  
       {% if user.is_authenticated %}
-      <h1 class="fadeUpText">Hello, {{user.username}} 😊. You're on the SpeedJob S3 Website!</h1>
+      <h1>Hello, {{user.username}}. You're on the SpeedJob S3 Website!</h1>
       {% else %}
-      <h1 class="fadeUpText">Hello, stranger 🥷. You're on the SpeedJob S3 Website!</h1>
+      <h1>Hello, unknown. You're on the SpeedJob S3 Website!</h1>
       {% endif %}
 
       {% if DEBUG %}
-      <h2 class="fadeUpText"> DEBUG MODE IS ENABLED </h2>
+      <h2> DEBUG MODE IS ENABLED </h2>
       {% endif %}
 
-   
-
       {% load static %}
-      <img id="replaceable" class="hideOnMobile rounded_corners fadeLeftText" style="cursor:pointer; "onclick="change()" src="{% static 'jobapp/img/yeah_baby.gif' %}">
+      <img id="replaceable" class="hideOnMobile rounded_corners" style="cursor:pointer; "onclick="change()" src="{% static 'jobapp/img/yeah_baby.gif' %}">
 </section>
 <section class="dark" style="padding-top: 30vh;">
 
