@@ -1,114 +1,152 @@
 
 @media only screen and (max-width: 760px) {
-.hideOnMobile { display: none; }
-}
-
-.rounded_corners{
-  border-radius:20px;
-}
-
-form {
-  font-family: Roboto;
-  display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
-  margin: auto;
-  font-size: 18px;
-  color: black;
-  background-color: white;
-  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 50px;
-  Padding: 50px;
-}
-
-
-
-
-form input {
-  color: black;
-  position: relative;
-  text-align: center;
-  margin: auto;
-  border-radius: 10px;
-  border-color: black;
-  border-width: 2px;
-}
-
-form input[type=submit] {
-  border-radius: 10px;
-  border-color: #673AB7;
-  color: #fff;
-  background-color: #f45b69;
-  text-transform: uppercase;
-  width: 100px;
-  height: 35px;
-  border: 0px;
-}
-
-form input[type=submit]:hover {
-  background-color: #a63841;
-}
-
-form button {
-  border-radius: 10px;
-  border-color: #673AB7;
-  color: #fff;
-  background-color: #f45b69;
-  text-transform: uppercase;
-  width: 100px;
-  height: 35px;
-  border: 0px;
-}
-
-.stylized_button {
-  border-radius: 10px;
-  border-color: #673AB7;
-  color: #fff;
-  background-color: #f45b69;
-  text-transform: uppercase;
-  width: 100px;
-  height: 35px;
-  border: 0px;
-}
-
-form button:hover {
-  background-color: #a63841;
-}
-
-form p {
-  color: black;
-  text-align: center;
-}
-
-.notification{
-
-  display:flex;
-  justify-content: left;
-  border-radius: 10px;
-  animation-name: fadeBounce;
-  animation-duration: 10s;
-  opacity: 0;
-  padding: 2% 5%;
-  max-width:30%;
-  max-height:20%;
-}
-
-.error_not{
+  .hideOnMobile { display: none; }
+  }
   
-  background-color: #f44336;
-  color:white;
-}
-
-.success_not{
-  background-color: blue;
-  color:white;
-}
-
-@keyframes fadeBounce{
-  0% {opacity: 0;}
-  40% {opacity: 1;}
-  100% {opacity: 0;}
-}
-
-
+  .rounded_corners{
+    border-radius:20px;
+  }
+  
+  form {
+    font-family: Roboto;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    margin: auto;
+    font-size: 18px;
+    color: black;
+    background-color: white;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 50px;
+    Padding: 50px;
+  }
+  
+  
+  
+  
+  form input {
+    color: black;
+    position: relative;
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+    border-color: black;
+    border-width: 2px;
+  }
+  
+  form input[type=submit] {
+    border-radius: 10px;
+    border-color: #673AB7;
+    color: #fff;
+    background-color: #f45b69;
+    text-transform: uppercase;
+    width: 100px;
+    height: 35px;
+    border: 0px;
+  }
+  
+  form input[type=submit]:hover {
+    background-color: #a63841;
+  }
+  
+  form button {
+    border-radius: 10px;
+    border-color: #673AB7;
+    color: #fff;
+    background-color: #f45b69;
+    text-transform: uppercase;
+    width: 100px;
+    height: 35px;
+    border: 0px;
+  }
+  
+  .stylized_button {
+    border-radius: 10px;
+    border-color: #673AB7;
+    color: #fff;
+    background-color: #f45b69;
+    text-transform: uppercase;
+    width: 100px;
+    height: 35px;
+    border: 0px;
+  }
+  
+  form button:hover {
+    background-color: #a63841;
+  }
+  
+  form p {
+    color: black;
+    text-align: center;
+  }
+  
+  .notification{
+  
+    display:flex;
+    justify-content: left;
+    border-radius: 10px;
+    animation-name: fadeBounce;
+    animation-duration: 10s;
+    opacity: 0;
+    padding: 2% 5%;
+    max-width:30%;
+    max-height:20%;
+  }
+  
+  .error_not{
+    
+    background-color: #f44336;
+    color:white;
+  }
+  
+  .success_not{
+    background-color: blue;
+    color:white;
+  }
+  
+  @keyframes fadeBounce{
+    0% {opacity: 0;}
+    40% {opacity: 1;}
+    100% {opacity: 0;}
+  }
+  
+  .fadeUpText{
+    opacity: 0;
+    transform: translateY(3rem);
+    animation: fadeUpText 2s ease forwards;
+  }
+  
+  @keyframes fadeUpText{
+    to{
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fadeLeftText{
+    opacity: 0;
+    transform: translateX(5rem);
+    animation: fadeLeftText 2s ease forwards;
+  }
+  
+  @keyframes fadeLeftText{
+    to{
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  
+  .fadeRightText{
+    opacity: 0;
+    transform: translateX(-5rem);
+    animation: fadeRightText 2s ease forwards;
+  }
+  
+  @keyframes fadeRightText{
+    to{
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
