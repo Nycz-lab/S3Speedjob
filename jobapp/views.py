@@ -196,8 +196,11 @@ def profile(request):                                                           
             messages.success(request, f'Your picture has been saved!')
             return redirect('profile')
     else:
-        form = ProfileForm(instance=request.user.profile)
-        companies = Company.objects.filter(profile = request.user.profile)
-        return render(request, 'jobapp/profile.html', {'form': form, 'companies': companies})
+        if request.user.is_authenticated:
+            form = ProfileForm(instance=request.user.profile)
+            companies = Company.objects.filter(profile = request.user.profile)
+            return render(request, 'jobapp/profile.html', {'form': form, 'companies': companies})
+        else:
+            return render(request, 'jobapp/profile.html')
 
 # Create your views here.

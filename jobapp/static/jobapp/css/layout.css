@@ -1,0 +1,112 @@
+:root{
+    --primary: #3134d8;;
+    --secondary: #202731;
+}
+
+body {
+    margin: 0;
+    font-family: 'Prompt', sans-serif;
+    color: white;
+    background-color: #202731;
+    overflow-x: hidden;
+  }
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover{
+    color: white;
+    text-decoration: underline;
+}
+
+.stylized-list {
+    background-color: var(--secondary);
+    list-style-type: none;
+    
+}
+
+.stylized-list li{
+    border-radius: 5px;
+    transition: .5s;
+}
+
+.stylized-list img{
+  margin: 15px;
+  
+  margin-right: 20%;
+}
+
+.stylized-list li:hover{
+    background-color: var(--primary);
+}
+
+  section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 400px;
+    padding: 100px 20vw;
+    padding-bottom: 10vw;
+  }
+
+  .blue{
+    background: var(--primary);
+  }
+  
+  .red{
+    background: #dd3f31;
+  }
+  
+  .dark{
+    background: var(--secondary);
+  }
+  
+  .pink{
+    background: #ff0066;
+  }
+  
+
+
+
+.wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(113% + 1.3px);
+    height: 209px;
+}
+
+.wave .shape-fill {
+    fill: #3134d8;
+}
+
+.wave2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave2 svg {
+    position: relative;
+    display: block;
+    width: calc(173% + 1.3px);
+    height: 172px;
+}
+
+.wave2 .shape-fill {
+    fill: var(--secondary);
+}
