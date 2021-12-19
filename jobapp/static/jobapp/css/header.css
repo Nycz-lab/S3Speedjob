@@ -111,42 +111,4 @@ form p {
   100% {opacity: 0;}
 }
 
-.fadeUpText{
-  opacity: 0;
-  transform: translateY(3rem);
-  animation: fadeUpText 2s ease forwards;
-}
 
-@keyframes fadeUpText{
-  to{
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.fadeLeftText{
-  opacity: 0;
-  transform: translateX(5rem);
-  animation: fadeLeftText 2s ease forwards;
-}
-
-@keyframes fadeLeftText{
-  to{
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-
-.fadeRightText{
-  opacity: 0;
-  transform: translateX(-5rem);
-  animation: fadeRightText 2s ease forwards;
-}
-
-@keyframes fadeRightText{
-  to{
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
